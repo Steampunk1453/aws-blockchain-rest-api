@@ -44,10 +44,7 @@ public class QueryController {
                 new Properties());
 
         hfcaClient.setCryptoSuite(cryptoSuite);
-        RegistrationRequest registrationRequest = new RegistrationRequest("tftestadminuser", "org1");
-        String enrollmentSecret = hfcaClient.register(registrationRequest, userContext);
-
-        Enrollment enrollment = hfcaClient.enroll("tftestadminuser", enrollmentSecret);
+        Enrollment enrollment = hfcaClient.enroll("tftestadminuser", "iNn0cvSolutions");
         userContext.setEnrollment(enrollment);
         client.setUserContext(userContext);
 
