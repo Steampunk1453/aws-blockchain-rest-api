@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 @Slf4j
@@ -39,9 +41,11 @@ public class QueryController {
                 .mspId("Org1")
                 .build();
 
+        Properties properties = new Properties();
+        properties.put("pemBytes", Files.readAllBytes(Paths.get("/home/ec2-user/aws-blockchain-rest-api/src/main/resources/managed-blockchain.pem")));
         HFCAClient hfcaClient = HFCAClient.createNewInstance("ca-org1",
                 "https://ca.m-75qmfnvaazfrdgd54tjw3bmhkm.n-rvten2q5fbcsno27kghwnmxqvq.managedblockchain.us-east-1.amazonaws.com:30002",
-                new Properties());
+                properties);
 
         hfcaClient.setCryptoSuite(cryptoSuite);
         Enrollment enrollment = hfcaClient.enroll("tftestadminuser", "iNn0cvSolutions");
