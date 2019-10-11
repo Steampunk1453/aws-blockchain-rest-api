@@ -3,9 +3,13 @@ package com.innocv.hyperledger.controllers;
 import com.innocv.hyperledger.config.UserContext;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.hyperledger.fabric.sdk.ChaincodeID;
+import org.hyperledger.fabric.sdk.Channel;
 import org.hyperledger.fabric.sdk.Enrollment;
 import org.hyperledger.fabric.sdk.HFClient;
 import org.hyperledger.fabric.sdk.NetworkConfig;
+import org.hyperledger.fabric.sdk.ProposalResponse;
+import org.hyperledger.fabric.sdk.TransactionProposalRequest;
 import org.hyperledger.fabric.sdk.helper.Config;
 import org.hyperledger.fabric.sdk.security.CryptoSuite;
 import org.hyperledger.fabric_ca.sdk.HFCAClient;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Collection;
 import java.util.Properties;
 
 @Slf4j
@@ -55,6 +60,19 @@ public class QueryController {
         client.loadChannelFromConfig("mychannel", networkConfig);
 
         log.debug("Created client");
+
+        Channel channel = client.getChannel("mychannel");
+        TransactionProposalRequest request = client.newTransactionProposalRequest();
+        String chainCodeName = "ngo";
+        ChaincodeID chaincodeID = ChaincodeID.newBuilder().setName(chainCodeName).build();
+
+        request.setChaincodeID(chaincodeID);
+        request.setFcn("queryAllDonors");
+
+        request.setProposalWaitTime(3000);
+        Collection<ProposalResponse> responses = channel.sendTransactionProposal(request);
+
+        log.debug("Found {} proposals", responses.size());
     }
 
 }
