@@ -43,7 +43,7 @@ public class QueryController {
         UserContext userContext = UserContext.builder()
                 .name("tftestadminuser")
                 .affiliation("Org1")
-                .mspId("Org1")
+                .mspId("m-75QMFNVAAZFRDGD54TJW3BMHKM")
                 .build();
 
         Properties properties = new Properties();
