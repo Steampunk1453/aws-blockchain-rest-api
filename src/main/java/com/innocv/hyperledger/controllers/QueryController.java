@@ -62,6 +62,8 @@ public class QueryController {
         log.debug("Created client");
 
         Channel channel = client.getChannel("mychannel");
+        channel.initialize();
+
         TransactionProposalRequest request = client.newTransactionProposalRequest();
         String chainCodeName = "ngo";
         ChaincodeID chaincodeID = ChaincodeID.newBuilder().setName(chainCodeName).build();
