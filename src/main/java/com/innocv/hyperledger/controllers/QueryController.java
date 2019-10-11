@@ -27,8 +27,14 @@ public class QueryController {
         NetworkConfig networkConfig = NetworkConfig.fromYamlFile(configFile);
         HFClient client = HFClient.createNewInstance();
         client.setCryptoSuite(cryptoSuite);
-        client.setUserContext(new UserContext());
 
+        UserContext userContext = UserContext.builder()
+                .name("tftestadminuser")
+                .affiliation("Org1")
+                .mspId("Org1")
+                .build();
+
+        client.setUserContext(userContext);
         client.loadChannelFromConfig("mychannel", networkConfig);
 
         log.debug("Created client");

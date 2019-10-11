@@ -1,38 +1,21 @@
 package com.innocv.hyperledger.config;
 
+import lombok.Builder;
+import lombok.Data;
 import org.hyperledger.fabric.sdk.Enrollment;
 import org.hyperledger.fabric.sdk.User;
 
 import java.util.Set;
 
+@Data
+@Builder
 public class UserContext implements User {
-    @Override
-    public String getName() {
-        return "";
-    }
 
-    @Override
-    public Set<String> getRoles() {
-        return null;
-    }
+    private String name;
+    private Set<String> roles;
+    private String account;
+    private String affiliation;
+    private Enrollment enrollment;
+    private String mspId;
 
-    @Override
-    public String getAccount() {
-        return null;
-    }
-
-    @Override
-    public String getAffiliation() {
-        return "";
-    }
-
-    @Override
-    public Enrollment getEnrollment() {
-        return null;
-    }
-
-    @Override
-    public String getMspId() {
-        return null;
-    }
 }
