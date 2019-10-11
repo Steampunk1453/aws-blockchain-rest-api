@@ -20,9 +20,13 @@ public class QueryController {
     private void list() {
         log.debug("Query all donors");
 
+        CryptoSuite cryptoSuite = CryptoSuite.Factory.getCryptoSuite();
+
         File configFile = new File("/home/ec2-user/aws-blockchain-rest-api/src/main/resources/config-profile.yml");
         NetworkConfig networkConfig = NetworkConfig.fromYamlFile(configFile);
         HFClient client = HFClient.createNewInstance();
+        client.setCryptoSuite(cryptoSuite);
+
         client.loadChannelFromConfig("mychannel", networkConfig);
 
         log.debug("Created client");
