@@ -77,10 +77,8 @@ public class QueryController {
 
         log.debug("Found {} proposals", responses.size());
 
-        ObjectMapper objectMapper = new ObjectMapper();
         for (ProposalResponse response : responses) {
-            log.debug("Writing proposal from response");
-            log.debug(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(response));
+            log.debug("Response is {}", new String(response.getChaincodeActionResponsePayload()));
         }
     }
 
