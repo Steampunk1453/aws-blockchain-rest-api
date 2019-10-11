@@ -43,7 +43,7 @@ public class QueryController {
 
         Properties properties = new Properties();
         properties.put("pemBytes", Files.readAllBytes(Paths.get("/home/ec2-user/aws-blockchain-rest-api/src/main/resources/managed-blockchain.pem")));
-        HFCAClient hfcaClient = HFCAClient.createNewInstance("ca",
+        HFCAClient hfcaClient = HFCAClient.createNewInstance("m-75QMFNVAAZFRDGD54TJW3BMHKM",
                 "https://ca.m-75qmfnvaazfrdgd54tjw3bmhkm.n-rvten2q5fbcsno27kghwnmxqvq.managedblockchain.us-east-1.amazonaws.com:30002",
                 properties);
 
