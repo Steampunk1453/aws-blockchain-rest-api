@@ -1,5 +1,6 @@
 package com.innocv.hyperledger.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.innocv.hyperledger.config.UserContext;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -75,6 +76,12 @@ public class QueryController {
         Collection<ProposalResponse> responses = channel.sendTransactionProposal(request);
 
         log.debug("Found {} proposals", responses.size());
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        for (ProposalResponse response : responses) {
+            log.debug("Writing proposal from response");
+            log.debug(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(response));
+        }
     }
 
 }
