@@ -30,7 +30,7 @@ public class QueryController {
 
     @SneakyThrows
     @GetMapping("/donors")
-    private void list() {
+    private String list() {
         log.debug("Query all donors");
 
         CryptoSuite cryptoSuite = CryptoSuite.Factory.getCryptoSuite();
@@ -77,9 +77,10 @@ public class QueryController {
 
         log.debug("Found {} proposals", responses.size());
 
-        for (ProposalResponse response : responses) {
-            log.debug("Response is {}", new String(response.getChaincodeActionResponsePayload()));
-        }
+        String response = new String(responses.iterator().next().getChaincodeActionResponsePayload());
+        log.debug("Response is {}", response);
+
+        return response;
     }
 
 }
