@@ -9,6 +9,7 @@ import org.hyperledger.fabric.sdk.NetworkConfig;
 import org.hyperledger.fabric.sdk.helper.Config;
 import org.hyperledger.fabric.sdk.security.CryptoSuite;
 import org.hyperledger.fabric_ca.sdk.HFCAClient;
+import org.hyperledger.fabric_ca.sdk.RegistrationRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,11 +41,13 @@ public class QueryController {
 
         HFCAClient hfcaClient = HFCAClient.createNewInstance("ca-org1",
                 "https://ca.m-75qmfnvaazfrdgd54tjw3bmhkm.n-rvten2q5fbcsno27kghwnmxqvq.managedblockchain.us-east-1.amazonaws.com:30002",
-                null);
+                new Properties());
 
         hfcaClient.setCryptoSuite(cryptoSuite);
+        RegistrationRequest registrationRequest = new RegistrationRequest("tftestadminuser", "org1");
+        String enrollmentSecret = hfcaClient.register(registrationRequest, userContext);
 
-        Enrollment enrollment = hfcaClient.enroll("tftestadminuser", "iNn0cvSolutions");
+        Enrollment enrollment = hfcaClient.enroll("tftestadminuser", enrollmentSecret);
         userContext.setEnrollment(enrollment);
         client.setUserContext(userContext);
 
