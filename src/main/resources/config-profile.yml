@@ -1,0 +1,65 @@
+# Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License").
+# You may not use this file except in compliance with the License.
+# A copy of the License is located at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# or in the "license" file accompanying this file. This file is distributed
+# on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+# express or implied. See the License for the specific language governing
+# permissions and limitations under the License.
+
+name: "ngo"
+x-type: "hlfv1"
+description: "NGO Network"
+version: "1.0"
+
+channels:
+  mychannel:
+    orderers:
+      - orderer.com
+    peers:
+      peer1:
+        endorsingPeer: true
+        chaincodeQuery: true
+        ledgerQuery: true
+        eventSource: true
+
+organizations:
+  Org1:
+    mspid: m-75QMFNVAAZFRDGD54TJW3BMHKM
+    peers:
+      - peer1
+    certificateAuthorities:
+      - ca-org1
+
+orderers:
+  orderer.com:
+    url: grpcs://orderer.n-rvten2q5fbcsno27kghwnmxqvq.managedblockchain.us-east-1.amazonaws.com:30001
+    grpcOptions:
+      ssl-target-name-override: orderer.n-rvten2q5fbcsno27kghwnmxqvq.managedblockchain.us-east-1.amazonaws.com
+    tlsCACerts:
+      path: /home/ec2-user/managedblockchain-tls-chain.pem
+
+peers:
+  peer1:
+    url: grpcs://nd-6dtjutiumjdenhbpfi2j5zup2y.m-75qmfnvaazfrdgd54tjw3bmhkm.n-rvten2q5fbcsno27kghwnmxqvq.managedblockchain.us-east-1.amazonaws.com:30003
+    eventUrl: grpcs://nd-6dtjutiumjdenhbpfi2j5zup2y.m-75qmfnvaazfrdgd54tjw3bmhkm.n-rvten2q5fbcsno27kghwnmxqvq.managedblockchain.us-east-1.amazonaws.com:30004
+    grpcOptions:
+      ssl-target-name-override: nd-6dtjutiumjdenhbpfi2j5zup2y.m-75qmfnvaazfrdgd54tjw3bmhkm.n-rvten2q5fbcsno27kghwnmxqvq.managedblockchain.us-east-1.amazonaws.com
+    tlsCACerts:
+      path: /home/ec2-user/managedblockchain-tls-chain.pem
+
+certificateAuthorities:
+  ca-org1:
+    url: https://ca.m-75qmfnvaazfrdgd54tjw3bmhkm.n-rvten2q5fbcsno27kghwnmxqvq.managedblockchain.us-east-1.amazonaws.com:30002
+    httpOptions:
+      verify: false
+    tlsCACerts:
+      path: /home/ec2-user/managedblockchain-tls-chain.pem
+    registrar:
+      - enrollId: tftestadminuser
+        enrollSecret: iNn0cvSolutions
+    caName: m-75QMFNVAAZFRDGD54TJW3BMHKM
