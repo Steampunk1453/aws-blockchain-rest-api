@@ -41,6 +41,9 @@ public class QueryController {
         HFCAClient hfcaClient = HFCAClient.createNewInstance("ca-org1",
                 "https://ca.m-75qmfnvaazfrdgd54tjw3bmhkm.n-rvten2q5fbcsno27kghwnmxqvq.managedblockchain.us-east-1.amazonaws.com:30002",
                 null);
+
+        hfcaClient.setCryptoSuite(cryptoSuite);
+
         Enrollment enrollment = hfcaClient.enroll("tftestadminuser", "iNn0cvSolutions");
         userContext.setEnrollment(enrollment);
         client.setUserContext(userContext);
