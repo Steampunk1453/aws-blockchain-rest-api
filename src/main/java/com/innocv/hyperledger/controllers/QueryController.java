@@ -1,5 +1,6 @@
 package com.innocv.hyperledger.controllers;
 
+import com.innocv.hyperledger.config.UserContext;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.hyperledger.fabric.sdk.HFClient;
@@ -26,6 +27,7 @@ public class QueryController {
         NetworkConfig networkConfig = NetworkConfig.fromYamlFile(configFile);
         HFClient client = HFClient.createNewInstance();
         client.setCryptoSuite(cryptoSuite);
+        client.setUserContext(new UserContext());
 
         client.loadChannelFromConfig("mychannel", networkConfig);
 
