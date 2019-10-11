@@ -16,6 +16,13 @@ x-type: "hlfv1"
 description: "NGO Network"
 version: "1.0"
 
+client:
+  organization: Org1
+  credentialStore:
+    path: "./fabric-client-certs-org1"
+    cryptoStore:
+      path: "./fabric-client-keys-org1"
+
 channels:
   mychannel:
     orderers:
